@@ -11,17 +11,20 @@ exports.getAddProduct = (req, res, next) => {
     });
 }
 
-exports.postAddProduct = (req, res, next) => {
+exports.postAddProduct = async (req, res, next) => {
     const product = new Product(req.body.title);
-    product.save();
-    res.redirect('/');
-}
+    await product.save();
+    res.redirect("/");
+};
 
-exports.getProducts = (req, res, next) => {
-    const products = Product.fetchAll();
+exports.getProducts = async (req, res, next) => {
+    const products = await Product.fetchAll();
     res.render('shop', {
         prods: products,
         pageTitle: 'Shop',
         path: '/',
+        hasProducts: products.length > 0,
+        activeShop: true, productCSS: true
     });
-}
+};
+
