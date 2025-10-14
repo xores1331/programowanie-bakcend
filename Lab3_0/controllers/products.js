@@ -13,6 +13,8 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
     const title = req.body.title;
+    const desc = req.body.desc;
+    const price = req.body.price;
     const image = req.file;
     if(!image){
         return res.status(422).render("add-product", {
@@ -22,7 +24,7 @@ exports.postAddProduct = async (req, res, next) => {
         });
     }
     const imageUrl = image.path;
-    const product = new Product(title, imageUrl);
+    const product = new Product(title, desc, price, imageUrl);
     await product.save();
     res.redirect("/");
 };
