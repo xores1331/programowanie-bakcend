@@ -17,28 +17,29 @@ const getProductsFromFile = async () => {
 };
 
 module.exports = class Product{
-constructor(t) {
-    this.title = t;
-    this.price = Math.floor(Math.random() * 90) + 10;
-    this.desc = 'A very nice ' + this.title;
-}
+    constructor(t, img) {
+            this.title = t;
+            this.image = img;
+            this.price = Math.floor(Math.random() * 90) + 10;
+            this.desc = 'A very nice ' + this.title;
+    }
 
-async save() {
-    products.length = 0;
-    try{
+    async save() {
+        products.length = 0;
+        try{
+            const prods = await getProductsFromFile();
+            products.push(...prods);
+            products.push(this);
+            await fs.writeFile(fullName, JSON.stringify(products));
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    static async fetchAll() {
+        products.length = 0;
         const prods = await getProductsFromFile();
         products.push(...prods);
-        products.push(this);
-        await fs.writeFile(fullName, JSON.stringify(products));
-    }catch(error){
-        console.log(error);
+        return products;
     }
-}
-
-static async fetchAll() {
-    products.length = 0;
-    const prods = await getProductsFromFile();
-    products.push(...prods);
-    return products;
-}
 };
