@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Tank",
+        "image": "images\\2025-09-09T09_01_40.153Z-tank-2.jpg",
+        "price": 57,
+        "desc": "A very nice Tank"
+    },
+    {
+        "title": "Boat",
+        "image": "images\\2025-09-09T09_01_53.618Z-boat1.jpg",
+        "price": 86,
+        "desc": "A very nice Boat"
+    },
+    {
+        "title": "Nowy",
+        "price": "123,45",
+        "image": "images\\2025-09-10T07_57_29.706Z-tank-8.jpg",
+        "desc": "Nowy, nowy produkt"
+    },
+    {
+        "title": "Tank IS2",
+        "price": "999,66",
+        "desc": "The most modern USSR tank, 1944.",
+        "image": "images\\2025-09-10T08_00_08.809Z-tank-2.jpg"
+    },
+    {
+        "title": "Car",
+        "price": "456,78",
+        "desc": "Price and description entered after finishing exercise 5: nice and inexpensive car.",
+        "image": "images\\2025-09-10T08_06_44.608Z-car-1.jpg"
+    }
+]
