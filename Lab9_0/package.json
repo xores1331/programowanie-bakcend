@@ -1,0 +1,20 @@
+{
+  "name": "prog-back-end",
+  "version": "1.0.0",
+  "description": "Programowanie back-end",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Jakub Sosin",
+  "license": "AFL-3.0",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mongoose": "^8.19.2"
+  }
+}
