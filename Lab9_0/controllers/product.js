@@ -1,9 +1,8 @@
 const Product = require('../models/product');
 
-
 exports.getProducts = async (req, res, next) => {
     try {
-        const products = await Product.getAllProducts();
+        const products = await Product.find();
         if (!products || products.length === 0) {
             res.status(404).json({ message: `No products found` });
         } else {
@@ -14,7 +13,6 @@ exports.getProducts = async (req, res, next) => {
     }
 };
 
-
 exports.addProduct = async (req, res, next) => {
     try {
         const name = req.body.name;
@@ -22,9 +20,14 @@ exports.addProduct = async (req, res, next) => {
         const price = Number(req.body.price);
         const id = Number(req.body.id);
 
-        const prod = await Product.getSingleProduct(id);
+        const prod = await Product.findOne({ id: id });
         if (!prod) {
-            const newp = new Product(name, desc, price, id);
+            const newp = new Product({
+                name: name,
+                desc: desc,
+                price: price,
+                id: id
+            });
             await newp.save();
             res.status(201).json({
                 message: `Product with id=${newp.id} added!`,
@@ -43,18 +46,17 @@ exports.addProduct = async (req, res, next) => {
     }
 };
 
-
 exports.updateSingleProduct = async (req, res, next) => {
     try {
         const id = Number(req.params.productId);
-        const prod = await Product.getSingleProduct(id);
+        const prod = await Product.findOne({ id: id });
 
         if (prod) {
             if (req.body.name) prod.name = req.body.name;
             if (req.body.desc) prod.desc = req.body.desc;
             if (req.body.price) prod.price = Number(req.body.price);
 
-            const pnew = await Product.updateSingleProd(prod);
+            const pnew = await prod.save();
             res.status(200).json({
                 message: `Product with id=${pnew.id} updated!`,
                 product: {
@@ -69,10 +71,11 @@ exports.updateSingleProduct = async (req, res, next) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 exports.getSingleProduct = async (req, res, next) => {
     try {
         const id = Number(req.params.productId);
-        const prod = await Product.getSingleProduct(id);
+        const prod = await Product.findOne({ id: id });
 
         if (prod) {
             res.status(200).json(prod);
@@ -84,11 +87,10 @@ exports.getSingleProduct = async (req, res, next) => {
     }
 };
 
-
 exports.deleteProduct = async (req, res, next) => {
     try {
         const id = Number(req.params.productId);
-        const deletedProduct = await Product.deleteProduct(id);
+        const deletedProduct = await Product.findOneAndDelete({ id: id });
 
         if (deletedProduct) {
             res.status(200).json({
